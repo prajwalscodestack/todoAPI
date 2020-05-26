@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
-const {createTodo,getAllTask,updateTodo,getTodoById,updateStatus} =require("../controllers/ToDo");
+const {createTodo,getAllTask,updateTodo,getTodoById,updateStatus,deleteTodo} =require("../controllers/ToDo");
 const {isSignedIn,isAuthenticated}=require("../controllers/Auth");
 const {getUserById}=require("../controllers/User");
 
@@ -26,7 +26,6 @@ router.put(
     check("description", "description is required").isLength({min:3}),
   ],
   isSignedIn,
-  isAuthenticated,
   updateTodo
 )  
 
@@ -34,7 +33,6 @@ router.put(
 router.put(
   "/todo/updateStatus/:todoId/:userId",
   isSignedIn,
-  isAuthenticated,
   updateStatus
 )  
 
@@ -43,7 +41,12 @@ router.put(
 router.get(
   "/todo/getAllTask/:userId",
   isSignedIn,
-  isAuthenticated,
   getAllTask
+)
+
+router.delete(
+  "/todo/deleteTodo/:todoId/:userId",
+  isSignedIn,
+  deleteTodo
 )
 module.exports = router;

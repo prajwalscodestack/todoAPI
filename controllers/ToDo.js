@@ -82,3 +82,20 @@ exports.updateStatus=(req,res)=>{
       }
     )
   }
+
+  //deleting todo
+  exports.deleteTodo=(req,res)=>{
+    let todo=req.todo;
+    todo.remove((err, deletedTodo) => {
+      if (err) {
+        return res.status(400).json({
+          error: "Failed to delete the product"
+        });
+      }
+      res.json({
+        message: "Deletion was a success",
+        deletedTodo
+      });
+    });
+    
+  }
