@@ -38,8 +38,7 @@ exports.createTodo = (req, res) => {
 
 //get all todos of user  
 exports.getAllTask=(req,res)=>{
-  ToDo.find()
-  .populate("user", "_id")
+  ToDo.find({user:req.profile._id})
   .exec((err, todos) => {
     if (err) {
       return res.status(400).json({
